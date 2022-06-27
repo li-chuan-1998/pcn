@@ -1,8 +1,8 @@
-cuda_inc = /usr/local/cuda-9.0/include/
-cuda_lib = /usr/local/cuda-9.0/lib64/
-nvcc = /usr/local/cuda-9.0/bin/nvcc
-tf_inc = /usr/local/lib/python3.5/dist-packages/tensorflow/include
-tf_lib = /usr/local/lib/python3.5/dist-packages/tensorflow
+cuda_inc = /usr/local/cuda-10.0/include/
+cuda_lib = /usr/local/cuda-10.0/lib64/
+nvcc = /usr/local/cuda/bin/nvcc
+tf_inc = /tensorflow-1.15.2/python3.7/tensorflow_core/include
+tf_lib = /tensorflow-1.15.2/python3.7/tensorflow_core
 
 all: tf_nndistance_so.so tf_approxmatch_so.so
 

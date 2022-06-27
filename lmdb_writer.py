@@ -29,35 +29,31 @@ from tensorpack import DataFlow, dataflow
 
 
 class pcd_df(DataFlow):
-    def __init__(self, model_list, num_scans, partial_dir, complete_dir):
-        self.model_list = model_list
-        self.num_scans = num_scans
-        self.partial_dir = partial_dir
-        self.complete_dir = complete_dir
+    def __init__(self, target_path):
+        self.root_dir = target_path
 
     def size(self):
-        return len(self.model_list) * self.num_scans
+        partial_path = os.path.join(self.root_dir, "partial")
+        return len(os.listdir(partial_path))
 
     def get_data(self):
-        for model_id in model_list:
-            complete = read_pcd(os.path.join(self.complete_dir, '%s.pcd' % model_id))
-            for i in range(self.num_scans):
-                partial = read_pcd(os.path.join(self.partial_dir, model_id, '%d.pcd' % i))
-                yield model_id.replace('/', '_'), partial, complete
+        complete_dir = os.path.join(self.root_dir, "complete")
+        partial_dir = os.path.join(self.root_dir, "partial")
+
+        for idx, file in enumerate(os.listdir(partial_dir)):
+            name_com = file.split("_")
+            complete_pcd = read_pcd(os.path.join(complete_dir, f"{name_com[0]}_{name_com[1]}_{name_com[2]}_complete.pcd"))
+            partial = read_pcd(os.path.join(partial_dir, file))
+            yield str(idx), partial, complete_pcd
+            
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--list_path')
-    parser.add_argument('--num_scans', type=int)
-    parser.add_argument('--partial_dir')
-    parser.add_argument('--complete_dir')
-    parser.add_argument('--output_path')
+    parser.add_argument('-t','--target_path')
     args = parser.parse_args()
 
-    with open(args.list_path) as file:
-        model_list = file.read().splitlines()
-    df = pcd_df(model_list, args.num_scans, args.partial_dir, args.complete_dir)
-    if os.path.exists(args.output_path):
-        os.system('rm %s' % args.output_path)
-    dataflow.LMDBSerializer.save(df, args.output_path)
+    df = pcd_df(args.target_path)
+    output_path = args.target_path + ".lmdb"
+    dataflow.LMDBSerializer.save(df, output_path)
+    
