@@ -146,8 +146,8 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--lmdb_train', default='data/shapenet/train.lmdb')
-    parser.add_argument('--lmdb_valid', default='data/shapenet/valid.lmdb')
+    parser.add_argument('--lmdb_train', default='data/Multi-View Dataset/train.lmdb')
+    parser.add_argument('--lmdb_valid', default='data/Multi-View Dataset/valid.lmdb')
     parser.add_argument('--log_dir', default='log/pcn_emd')
     parser.add_argument('--model_type', default='pcn_emd')
     parser.add_argument('--restore', action='store_true')
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     parser.add_argument('--lr_decay_steps', type=int, default=50000)
     parser.add_argument('--lr_decay_rate', type=float, default=0.7)
     parser.add_argument('--lr_clip', type=float, default=1e-6)
-    parser.add_argument('--max_step', type=int, default=300000)
+    parser.add_argument('--max_step', type=int, default=3000000)
     parser.add_argument('--steps_per_print', type=int, default=100)
     parser.add_argument('--steps_per_eval', type=int, default=1000)
     parser.add_argument('--steps_per_visu', type=int, default=3000)
@@ -168,4 +168,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     train(args)
-    
