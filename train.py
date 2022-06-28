@@ -146,9 +146,9 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--lmdb_train', default='data/Multi-View Dataset/train.lmdb')
-    parser.add_argument('--lmdb_valid', default='data/Multi-View Dataset/valid.lmdb')
-    parser.add_argument('--log_dir', default='log/pcn_emd')
+    parser.add_argument('--lmdb_train', default='/content/gdrive/MyDrive/Multi-View Dataset/train.lmdb')
+    parser.add_argument('--lmdb_valid', default='/content/gdrive/MyDrive/Multi-View Dataset/valid.lmdb')
+    parser.add_argument('--log_dir', default='/content/gdrive/pcn_emd')
     parser.add_argument('--model_type', default='pcn_emd')
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--batch_size', type=int, default=32)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     parser.add_argument('--steps_per_print', type=int, default=100)
     parser.add_argument('--steps_per_eval', type=int, default=1000)
     parser.add_argument('--steps_per_visu', type=int, default=3000)
-    parser.add_argument('--steps_per_save', type=int, default=100000)
+    parser.add_argument('--steps_per_save', type=int, default=50000)
     parser.add_argument('--visu_freq', type=int, default=5)
     args = parser.parse_args()
 
