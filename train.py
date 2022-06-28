@@ -148,7 +148,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--lmdb_train', default='/content/gdrive/MyDrive/Multi-View Dataset/train.lmdb')
     parser.add_argument('--lmdb_valid', default='/content/gdrive/MyDrive/Multi-View Dataset/valid.lmdb')
-    parser.add_argument('--log_dir', default='/content/gdrive/pcn_emd')
+    parser.add_argument('--log_dir', default='/content/gdrive/MyDrive/pcn_emd')
     parser.add_argument('--model_type', default='pcn_emd')
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--batch_size', type=int, default=32)
