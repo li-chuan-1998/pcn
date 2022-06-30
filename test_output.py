@@ -1,11 +1,10 @@
 import argparse
 import importlib
-import models
 import os
-import numpy as np
 import tensorflow as tf
 
 from io_util import read_pcd, save_pcd
+from data_util import resample_pcd
 
 
 def parse_args():
@@ -14,6 +13,7 @@ def parse_args():
     parser.add_argument('-o', '--output_path', type=str, help='path to the output directory')
     parser.add_argument('-m', '--model_type', type=str, default='pcn_emd', help='model type')
     parser.add_argument('-c', '--checkpoint', type=str, default='training/pcn_emd')
+    parser.add_argument('-n', '--num_input_pts', type=int, default=8192)
     args = parser.parse_args()
 
     return args
@@ -38,7 +38,7 @@ def main():
     os.makedirs(args.output_path, exist_ok=True)
     
     for file in os.listdir(args.input_folder):
-        partial = read_pcd(os.path.join(args.input_folder, file))
+        partial = resample_pcd(read_pcd(os.path.join(args.input_folder, file)), args.num_input_pts)
         complete = sess.run(model.outputs, feed_dict={inputs: [partial], npts: [partial.shape[0]]})[0]
 
         output_file = os.path.join(args.output_path, file.replace("partial",'output'))
