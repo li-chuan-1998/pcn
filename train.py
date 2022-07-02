@@ -107,8 +107,8 @@ def train(args):
         total_time += time.time() - start
         writer.add_summary(summary, step)
         if step % args.steps_per_print == 0:
-            print('epoch %d  step %d  loss %.8f - time per batch %.4f' %
-                  (epoch, step, loss, total_time / args.steps_per_print))
+            print('epoch %d  step %d  learning rate %s loss %.8f - time per batch %.4f' %
+                  (epoch, step, loss, learning_rate.eval(session=sess), total_time / args.steps_per_print))
             total_time = 0
         if step % args.steps_per_eval == 0:
             print(colored('Testing...', 'grey', 'on_green'))
