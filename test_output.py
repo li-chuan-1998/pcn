@@ -40,8 +40,11 @@ def main():
     for file in os.listdir(args.input_folder):
         partial = resample_pcd(read_pcd(os.path.join(args.input_folder, file)), args.num_input_pts)
         complete = sess.run(model.outputs, feed_dict={inputs: [partial], npts: [partial.shape[0]]})[0]
+        
+        if "partial" in file or "mul" in file:
+            out_name = "partial" if "partial" in file else "mul"
 
-        output_file = os.path.join(args.output_path, file.replace("partial",'output'))
+        output_file = os.path.join(args.output_path, file.replace(out_name, 'output'))
         save_pcd(output_file, complete)
 
 

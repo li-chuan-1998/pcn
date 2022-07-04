@@ -40,21 +40,21 @@ class Model:
         self.visualize_titles = ['input', 'coarse output', 'fine output', 'ground truth']
 
     def create_encoder(self, inputs, npts):
-        with tf.variable_scope('encoder_0', reuse=tf.AUTO_REUSE):
+        with tf.compat.v1.variable_scope('encoder_0', reuse=tf.compat.v1.AUTO_REUSE):
             features = mlp_conv(inputs, [128, 256])
             features_global = point_unpool(point_maxpool(features, npts, keepdims=True), npts)
             features = tf.concat([features, features_global], axis=2)
-        with tf.variable_scope('encoder_1', reuse=tf.AUTO_REUSE):
+        with tf.compat.v1.variable_scope('encoder_1', reuse=tf.compat.v1.AUTO_REUSE):
             features = mlp_conv(features, [512, 1024])
             features = point_maxpool(features, npts)
         return features
 
     def create_decoder(self, features):
-        with tf.variable_scope('decoder', reuse=tf.AUTO_REUSE):
+        with tf.compat.v1.variable_scope('decoder', reuse=tf.compat.v1.AUTO_REUSE):
             coarse = mlp(features, [1024, 1024, self.num_coarse * 3])
             coarse = tf.reshape(coarse, [-1, self.num_coarse, 3])
 
-        with tf.variable_scope('folding', reuse=tf.AUTO_REUSE):
+        with tf.compat.v1.variable_scope('folding', reuse=tf.compat.v1.AUTO_REUSE):
             x = tf.linspace(-self.grid_scale, self.grid_scale, self.grid_size)
             y = tf.linspace(-self.grid_scale, self.grid_scale, self.grid_size)
             grid = tf.meshgrid(x, y)

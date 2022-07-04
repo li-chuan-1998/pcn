@@ -84,10 +84,10 @@ def earth_mover(pcd1, pcd2):
 
 
 def add_train_summary(name, value):
-    tf.summary.scalar(name, value, collections=['train_summary'])
+    tf.compat.v1.summary.scalar(name, value, collections=['train_summary'])
 
 
 def add_valid_summary(name, value):
-    avg, update = tf.metrics.mean(value)
-    tf.summary.scalar(name, avg, collections=['valid_summary'])
+    avg, update = tf.compat.v1.metrics.mean(value)
+    tf.compat.v1.summary.scalar(name, avg, collections=['valid_summary'])
     return update
