@@ -107,8 +107,8 @@ def train(args):
         total_time += time.time() - start
         writer.add_summary(summary, step)
         if step % args.steps_per_print == 0:
-            print('epoch %d  step %d  loss %.8f - time per batch %.4f' %
-                  (epoch, step, loss, total_time / args.steps_per_print))
+            print('epoch %d  step %d  learning rate %.8f loss %.8f - time per batch %.4f' %
+                  (epoch, step, learning_rate.eval(session=sess), loss, total_time / args.steps_per_print))
             total_time = 0
         if step % args.steps_per_eval == 0:
             print(colored('Testing...', 'grey', 'on_green'))
@@ -146,9 +146,9 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--lmdb_train', default='/content/gdrive/MyDrive/Multi-View Dataset/train.lmdb')
-    parser.add_argument('--lmdb_valid', default='/content/gdrive/MyDrive/Multi-View Dataset/valid.lmdb')
-    parser.add_argument('--log_dir', default='/content/gdrive/MyDrive/pcn_emd')
+    parser.add_argument('--lmdb_train', default='/content/drive/MyDrive/Multi-View Dataset/train.lmdb')
+    parser.add_argument('--lmdb_valid', default='/content/drive/MyDrive/Multi-View Dataset/valid.lmdb')
+    parser.add_argument('--log_dir', default='/content/drive/MyDrive/pcn_emd')
     parser.add_argument('--model_type', default='pcn_emd')
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--batch_size', type=int, default=32)
