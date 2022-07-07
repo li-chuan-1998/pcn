@@ -40,6 +40,7 @@ def train(args):
     global_step = tf.Variable(0, trainable=False, name='global_step')
     alpha = tf.compat.v1.train.piecewise_constant(global_step, [10000, 20000, 50000],
                                         [0.01, 0.1, 0.5, 1.0], 'alpha_op')
+    # inputs_pl = tf.compat.v1.placeholder(tf.float32, (args.batch_size, args.num_input_points, 3), 'inputs')
     inputs_pl = tf.compat.v1.placeholder(tf.float32, (1, None, 3), 'inputs')
     npts_pl = tf.compat.v1.placeholder(tf.int32, (args.batch_size,), 'num_points')
     gt_pl = tf.compat.v1.placeholder(tf.float32, (args.batch_size, args.num_gt_points, 3), 'ground_truths')

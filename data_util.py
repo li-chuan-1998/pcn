@@ -88,6 +88,16 @@ class BatchData(dataflow.ProxyDataFlow):
         gts = np.stack([resample_pcd(x[2], self.gt_size) for x in data_holder]).astype(np.float32)
         return ids, inputs, npts, gts
 
+    def _aggregate_batch_v2(self, data_holder, use_list=False):
+        ''' 
+            similar function as the above, but the output of "inputs" will be in shape sizes of [bs, num input pts, 3]
+        '''
+        ids = np.stack([x[0] for x in data_holder])
+        inputs = np.stack([resample_pcd(x[1], self.input_size) for x in data_holder]).astype(np.float32)
+        npts = np.stack([self.input_size for _ in data_holder]).astype(np.int32)
+        gts = np.stack([resample_pcd(x[2], self.gt_size) for x in data_holder]).astype(np.float32)
+        return ids, inputs, npts, gts
+
 
 def lmdb_dataflow(lmdb_path, batch_size, input_size, output_size, is_training, test_speed=False):
     df = dataflow.LMDBSerializer.load(lmdb_path, shuffle=False)
