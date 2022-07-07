@@ -6,3 +6,4 @@ results
 *.pyc
 *.o
 *.so
+test_lmdb.py

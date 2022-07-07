@@ -74,6 +74,12 @@ def chamfer(pcd1, pcd2):
     dist2 = tf.reduce_mean(tf.sqrt(dist2))
     return (dist1 + dist2) / 2
 
+def chamfer_2(pcd1, pcd2):
+    dist1, _, dist2, _ = tf_nndistance.nn_distance(pcd1, pcd2)
+    dist1 = tf.reduce_mean(tf.sqrt(dist1))
+    dist2 = tf.reduce_mean(tf.sqrt(dist2))
+    return (dist1 + dist2) / 2
+
 
 def earth_mover(pcd1, pcd2):
     assert pcd1.shape[1] == pcd2.shape[1]
