@@ -147,9 +147,9 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--lmdb_train', default='/content/drive/MyDrive/Normal Dataset/train.lmdb')
-    parser.add_argument('--lmdb_valid', default='/content/drive/MyDrive/Normal Dataset/valid.lmdb')
-    parser.add_argument('--log_dir', default="/content/drive/MyDrive/pcn_altered_8192")
+    parser.add_argument('--lmdb_train', default='/content/drive/MyDrive/dataset_v3/train.lmdb')
+    parser.add_argument('--lmdb_valid', default='/content/drive/MyDrive/dataset_v3/valid.lmdb')
+    parser.add_argument('--log_dir', default="/content/drive/MyDrive/pcn_dataset_v3")
     parser.add_argument('--model_type', default='pcn_emd')
     parser.add_argument('--restore', action='store_true')
     parser.add_argument('--batch_size', type=int, default=32)
